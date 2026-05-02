@@ -1,0 +1,91 @@
+788. Rotated Digits
+
+An integer x is a good if after rotating each digit individually by 180 degrees, we get a valid number that is different from x. Each digit must be rotated - we cannot choose to leave it alone.
+
+A number is valid if each digit remains a digit after rotation. For example:
+
+0, 1, and 8 rotate to themselves,
+2 and 5 rotate to each other (in this case they are rotated in a different direction, in other words, 2 or 5 gets mirrored),
+6 and 9 rotate to each other, and
+the rest of the numbers do not rotate to any other number and become invalid.
+Given an integer n, return the number of good integers in the range [1, n].
+
+ 
+
+Example 1:
+Input: n = 10
+Output: 4
+Explanation: There are four good numbers in the range [1, 10] : 2, 5, 6, 9.
+Note that 1 and 10 are not good numbers, since they remain unchanged after rotating.
+
+Example 2:
+Input: n = 1
+Output: 0
+Example 3:
+
+Input: n = 2
+Output: 1
+ 
+
+Constraints:
+
+1 <= n <= 10^4
+
+APPROACH 1 : as the constraint are not too much it will accept O(n^2) solution too. 
+             so basically here if we are having digits : 0, 1, 8 then there will be no change in number as after rotating 180 they are givng the same no. 
+                                                digits : 3, 4, 7 after rotating 18 degree they are givng some unusual pattern which is not reprsenting any number. 
+                                                digits : 2, 5, 6, 9 after rotating giving valid number 2 --> 5 , 5 --> 2, 6 --> 9, 9 --> 6. 
+
+            so i am using nested loop conscept inside outer loop i am using one while loop which is basically checking for valid digits one by one if at any stage we are getting invalid numbers returning false
+            which will be removed while counting the valid numbers. 
+
+CODE : 
+ class Solution {
+public:
+    bool isGood(int i)
+    {
+        bool changed = false;
+
+        while (i)
+        {
+            int num = i % 10;
+
+            if ((num == 3) || (num == 4) || (num == 7))
+                return false;
+
+            if ((num == 2) || (num == 5) || (num == 6) || (num == 9))
+                changed = true;
+
+            i = i / 10;
+        }
+
+        return changed;
+    }
+
+    int rotatedDigits(int n) {
+        int count = 0;
+
+        for (int i = 0; i <= n; i++)
+        {
+            if (isGood(i))
+                count++;
+        }
+
+        return count;
+    }
+};
+
+APPROACH 2 : USING RECURSION for right now i was not able to understand that approach...
+
+
+
+
+
+
+
+
+
+
+
+
+
